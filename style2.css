@@ -16,6 +16,7 @@
 
 .dice{
     display: flex;
+    flex-direction: row;
     align-self: center;
 }
 
@@ -54,6 +55,9 @@
     color: white;
 }
 
+.dicebox{
+    display: inline-block;
+}
 
 .greenpiece {
     color: #66bb6a;

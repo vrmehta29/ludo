@@ -28,15 +28,6 @@
     <div class="game">
 
         <div class="board" id="board"></div>
-
-
-        <!-- <div class="dice">
-            <button  
-                type="button">Roll
-                Math.floor(Math.random()*6)+1
-            </button>
-        </div> -->
-
         <div class="dice" id="dice"></div>
 
     </div>
@@ -45,7 +36,7 @@
 
         // Fetching the elements
         let gameEl = document.querySelector("#board");
-        let diceEL = document.querySelector("#dice");
+        let diceEl = document.querySelector("#dice");
 
         // Creating all cells
         let cellsHTML = []
@@ -106,6 +97,12 @@
             }
         }
 
+        // Turn object
+        let turn = {
+            color: "blue",
+            rolledNumber: 0
+        }
+
         // Placing all 16 pieces
         let g1 = new piece(33, "greenpiece"); g1.placePiece(g1.housePosition);
         let g2 = new piece(34, "greenpiece"); g2.placePiece(g2.housePosition);
@@ -132,8 +129,7 @@
         let diceHTML = [];
         initDice();
 
-        
-        
+
         
         render();
 
@@ -152,25 +148,55 @@
 
         function placePieceGetHTML(cellColor, id, pieceColor){
             return `<div class="cell ${cellColor}" id="${id}">
-                                    <i class="fas fa-chess-pawn ${pieceColor}"></i>        
+                                    <i class="fas fa-map-marker-alt  ${pieceColor}"></i>    
                                 </div>`
-                    // `<button 
-                    //     type="button" 
-                    //     class="cell ${cellColor}" id="${id}">  <i class="fas fa-chess-pawn ${pieceColor}"></i>
-                    // </button>`
                     ;
         }
 
         function initDice(){
-            diceHTML.push(`<button type="button" class="btn btn-primary btn-sm" id="button"></button>`);
-            diceHTML.push(`<button type="button" class="btn btn-danger btn-sm" id="button"></button>`);
-            diceHTML.push(`<button type="button" class="btn btn-success btn-sm" id="button"></button>`);
-            diceHTML.push(`<button type="button" class="btn btn-warning btn-sm" id="button"></button>`);
+            diceHTML.push(`<button type="button" class="btn btn-primary btn-sm" id="button" 
+                    onclick="activateTurn()">    
+                </button>`);
+            diceHTML.push(`<div> <img src="img/d0.png" width=25px height=25px/></div>`);
+            render();
+        }
+
+        function activateTurn(){
+            
+            diceHTML[1] = (`<div> 
+                <img src="img/dice.gif" width=25px height=25px onclick="activateTurn();" />
+            </div>`);
+            render();
+
+            let rolledNumber = Math.floor(Math.random()*6)+1;
+            turn.rolledNumber = rolledNumber;
+            if (rolledNumber === 1) { diceHTML[1] = `<div> <img src="img/d1.png" width=25px height=25px/></div>`}
+            else if (rolledNumber === 2) { diceHTML[1] = `<div> <img src="img/d2.png" width=25px height=25px/></div>`}
+            else if (rolledNumber === 3) { diceHTML[1] = `<div> <img src="img/d3.png" width=25px height=25px/></div>`}
+            else if (rolledNumber === 4) { diceHTML[1] = `<div> <img src="img/d4.png" width=25px height=25px/></div>`}
+            else if (rolledNumber === 5) { diceHTML[1] = `<div> <img src="img/d5.png" width=25px height=25px/></div>`}
+            else if (rolledNumber === 6) { diceHTML[1] = `<div> <img src="img/d6.png" width=25px height=25px/></div>`}
+
+            if (turn.color === 'blue') {
+                turn.color = 'yellow';
+                diceHTML[0] = `<button type="button" class="btn btn-warning btn-sm" id="button" onclick="activateTurn()"></button>`;
+                }
+            else if (turn.color === 'yellow') {
+                turn.color = 'green';
+                diceHTML[0] = `<button type="button" class="btn btn-success btn-sm" id="button" onclick="activateTurn()"></button>`;}
+            else if (turn.color === 'green') {
+                turn.color = 'red';
+                diceHTML[0] = `<button type="button" class="btn btn-danger btn-sm" id="button" onclick="activateTurn()"></button>`;}
+            else if (turn.color === 'red') {
+                turn.color = 'blue';
+                diceHTML[0] = `<button type="button" class="btn btn-primary btn-sm" id="button" onclick="activateTurn()"></button>`;}
+            
+            setTimeout(() => {  render(); }, 1000);
         }
 
         function render(){
             gameEl.innerHTML = cellsHTML.join(" ");
-            diceEL.innerHTML = diceHTML.join(" ");
+            diceEl.innerHTML = diceHTML.join(" ");
         }
 
 
