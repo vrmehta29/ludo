@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo</title>
+    <link href="style.css" rel = "stylesheet">
+    <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+    <div class="game">
+        <div class="house green">
+            <div class="box">
+                <i class="fas fa-chess-pawn greenpiece"></i>
+                <i class="fas fa-chess-pawn greenpiece"></i>
+                <i class="fas fa-chess-pawn greenpiece"></i>
+                <i class="fas fa-chess-pawn  greenpiece"></i>
+            </div>
+        </div>
+    
+        <div class="house yellow" style="right: 0">
+            <div class="box">
+                <i class="fas fa-chess-pawn square-one yellowpiece"></i>
+                <i class="fas fa-chess-pawn square-two yellowpiece"></i>
+                <i class="fas fa-chess-pawn square-three yellowpiece"></i>
+                <i class="fas fa-chess-pawn square-four yellowpiece"></i>
+            </div>
+        </div>
+    
+        <div class="house red" style="bottom: 0">
+            <div class="box">
+                <i class="fas fa-chess-pawn square-one redpiece"></i>
+                <i class="fas fa-chess-pawn square-two redpiece"></i>
+                <i class="fas fa-chess-pawn square-three redpiece"></i>
+                <i class="fas fa-chess-pawn square-four redpiece"></i>
+            </div>
+        </div>
+    
+        <div class="house blue" style="bottom: 0;right: 0">
+            <div class="box">
+                <i class="fas fa-chess-pawn square-one bluepiece"></i>
+                <i class="fas fa-chess-pawn square-two bluepiece"></i>
+                <i class="fas fa-chess-pawn square-three bluepiece"></i>
+                <i class="fas fa-chess-pawn square-four bluepiece"></i>
+            </div>
+        </div>
+    
+        <div class="home"></div>
+        <div class="cells" style="top: 40%;"></div>
+        <div class="cells g-start" style="top: 40%;left:6.66%;"></div>
+        <div class="cells" style="top: 40%;left:13.32%;"></div>
+        <div class="cells" style="top: 40%;left:19.98%;"></div>
+        <div class="cells" style="top: 40%;left:26.64%;"></div>
+        <div class="cells" style="top: 40%;left:33.3%;"></div>
+    
+        <div class="cells" style="top: 0;left:40%;"></div>
+        <div class="cells" style="top: 6.66%;left:40%;"></div>
+        <div class="cells safe" style="top: 13.32%;left:40%;"></div>
+        <div class="cells" style="top: 19.98%;left:40%;"></div>
+        <div class="cells" style="top: 26.64%;left:40%;"></div>
+        <div class="cells" style="top: 33.3%;left:40%;"></div>
+    
+        <div class="cells" style="top: 0;left:46.66%;"></div>
+        <div class="cells yellow" style="top: 6.66%;left:46.66%;"></div>
+        <div class="cells yellow" style="top: 13.32%;left:46.66%;"></div>
+        <div class="cells yellow" style="top: 19.98%;left:46.66%;"></div>
+        <div class="cells yellow" style="top: 26.64%;left:46.66%;"></div>
+        <div class="cells yellow" style="top: 33.3%;left:46.66%;"></div>
+    
+        <div class="cells" style="top: 0;left:53.32%;"></div>
+        <div class="cells y-start" style="top: 6.66%;left:53.32%;"></div>
+        <div class="cells" style="top: 13.32%;left:53.32%;"></div>
+        <div class="cells" style="top: 19.98%;left:53.32%;"></div>
+        <div class="cells" style="top: 26.64%;left:53.32%;"></div>
+        <div class="cells" style="top: 33.3%;left:53.32%;"></div>
+    
+        <div class="cells" style="top: 40%; right: 33.3%"></div>
+        <div class="cells" style="top: 40%;right:26.64%;"></div>
+        <div class="cells" style="top: 40%;right:19.98%;"></div>
+        <div class="cells safe" style="top: 40%;right:13.32%;"></div>
+        <div class="cells" style="top: 40%;right:6.66%;"></div>
+        <div class="cells" style="top: 40%;right:0;"></div>
+    
+        <div class="cells blue" style="top: 46.66%; right: 33.3%"></div>
+        <div class="cells blue" style="top: 46.66%;right:26.64%;"></div>
+        <div class="cells blue" style="top: 46.66%;right:19.98%;"></div>
+        <div class="cells blue" style="top: 46.66%;right:13.32%;"></div>
+        <div class="cells blue" style="top: 46.66%;right:6.66%;"></div>
+        <div class="cells" style="top: 46.66%;right:0;"></div>
+    
+        <div class="cells" style="top: 53.32%; right: 33.3%"></div>
+        <div class="cells" style="top: 53.32%;right:26.64%;"></div>
+        <div class="cells" style="top: 53.32%;right:19.98%;"></div>
+        <div class="cells" style="top: 53.32%;right:13.32%;"></div>
+        <div class="cells b-start" style="top: 53.32%;right:6.66%;"></div>
+        <div class="cells" style="top: 53.32%;right:0;"></div>
+    
+        <div class="cells" style="bottom: 0;left:53.32%;"></div>
+        <div class="cells" style="bottom: 6.66%;left:53.32%;"></div>
+        <div class="cells safe" style="bottom: 13.32%;left:53.32%;"></div>
+        <div class="cells" style="bottom: 19.98%;left:53.32%;"></div>
+        <div class="cells" style="bottom: 26.64%;left:53.32%;"></div>
+        <div class="cells" style="bottom: 33.3%;left:53.32%;"></div>
+    
+        <div class="cells" style="bottom: 0;left:46.66%;"></div>
+        <div class="cells red " style="bottom: 6.66%;left:46.66%;"></div>
+        <div class="cells red" style="bottom: 13.32%;left:46.66%;"></div>
+        <div class="cells red" style="bottom: 19.98%;left:46.66%;"></div>
+        <div class="cells red" style="bottom: 26.64%;left:46.66%;"></div>
+        <div class="cells red" style="bottom: 33.3%;left:46.66%;"></div>
+    
+        <div class="cells" style="bottom: 0;left:40%;"></div>
+        <div class="cells r-start" style="bottom: 6.66%;left:40%;"></div>
+        <div class="cells" style="bottom: 13.32%;left:40%;"></div>
+        <div class="cells" style="bottom: 19.98%;left:40%;"></div>
+        <div class="cells" style="bottom: 26.64%;left:40%;"></div>
+        <div class="cells" style="bottom: 33.3%;left:40%;"></div>
+    
+        <div class="cells" style="top: 53.32%; left: 33.3%"></div>
+        <div class="cells" style="top: 53.32%;left:26.64%;"></div>
+        <div class="cells" style="top: 53.32%;left:19.98%;"></div>
+        <div class="cells safe" style="top: 53.32%;left:13.32%;"></div>
+        <div class="cells" style="top: 53.32%;left:6.66%;"></div>
+        <div class="cells" style="top: 53.32%;left:0;"></div>
+    
+        <div class="cells green" style="top: 46.66%;left: 33.3%"></div>
+        <div class="cells green" style="top: 46.66%;left:26.64%;"></div>
+        <div class="cells green" style="top: 46.66%;left:19.98%;"></div>
+        <div class="cells green" style="top: 46.66%;left:13.32%;"></div>
+        <div class="cells green" style="top: 46.66%;left:6.66%;"></div>
+        <div class="cells" style="top: 46.66%;left:0;"></div>
+    
+    
+    </div>
+</body>
+</html>
