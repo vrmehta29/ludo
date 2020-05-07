@@ -6,15 +6,54 @@
 }
 
 .cell {
-    display: block;
+    display: flex;
     flex: 1 0 6.3%;
-    border: 0.5px solid gray;
+    border: 0.5px solid gainsboro;
     margin: 0;
-    padding-top: 6.67%;
-    /* height: auto; */
+    height: auto;
+    padding-bottom:  2.67%;
   }
 
-.cell:before {
-	content: '';
-	padding-top: 100%;
+
+.green {
+    background-color: #b6f0b9;
+    color: #b6f0b9;
+}
+.red {
+    background-color: #df9190;
+    color: #df9190;
+}
+.yellow {
+    background-color: #fff176;
+    color: #fff176;
+}
+.blue {
+    background-color: #6ec4ec;
+    color: #6ec4ec;
+}
+.black {
+    background-color: black;
+    color: black;
+}
+.white {
+    background-color: white;
+    color: white;
+}
+
+
+.greenpiece {
+    color: #66bb6a;
+    font-size: 1.5rem;
+}
+.redpiece {
+    color: #e53935;
+    font-size: 1.5rem;
+}
+.yellowpiece {
+    color: #e7d213;
+    font-size: 1.5rem;
+}
+.bluepiece {
+    color: #29b6f6;
+    font-size: 1.5rem;
 }

@@ -25,9 +25,114 @@
         // Creating all cells
         let cellsHTML = []
         for (let i=1; i<=225; i++) {
-            cellsHTML.push(`<div class="cell" id="${i}">  </div>`);
+            cellsHTML.push(createCell(i));
         } 
-        gameEl.innerHTML = cellsHTML.join(" ");
+
+        // Defining cell colors
+        let green = [1,2,3,4,5,6,16,21,31,36,46,51,61,66,76,76,77,78,79,80, 81];
+        let red = green.map(i => i + 9);
+        let yellow = green.map(i => i + 135);
+        let blue = green.map(i => i+ 144);
+        let black = [97, 99, 127, 129, 113];
+        let greenPath = [92, 107, 108, 109, 110, 111, 112];
+        let redPath = [23, 38, 53, 68, 83, 98, 24];
+        let yellowPath = [202, 203, 188, 173, 158, 143, 128];
+        let bluePath = [134, 119, 118, 117, 116, 115, 114];
+
+        // Function to return cell color
+        function getColor(i) {
+            if (green.includes(i) || greenPath.includes(i)){ return "green" }
+            else if (red.includes(i) || redPath.includes(i)){ return "red" }
+            else if (yellow.includes(i) || yellowPath.includes(i)){ return "yellow" }
+            else if (blue.includes(i) || bluePath.includes(i)){ return "blue" }
+            else if (black.includes(i)) { return"black" }
+            else {return "white"}   
+        }
+
+        // Coloring cells
+        for (let i=1; i<=225; i++) {
+            colorCell(i, getColor(i))
+        }
+
+        // Path traversal order
+        let pathOrder = [217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219, 
+                         217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219];
+
+
+        // placePiece(33, "greenpiece");
+        // movePiece(33, 34, "greenpiece")
+        
+        // Pieces objects
+        let piece = function(housePosition, pieceColor){
+            this.housePosition = housePosition;
+            this.position = housePosition;
+            this.color = pieceColor;
+            this.inHouse = this.position === this.housePosition;
+
+            // Place piece at cell i
+            this.placePiece =  function(i){
+                cellsHTML[i-1] = placePieceGetHTML(getColor(i), i, this.color);
+                this.position = i;
+            }
+
+            // Move piece from cell i to cell j
+            this.movePiece = function (j){
+                let i = this.position;
+                cellsHTML[i-1] =  placePieceGetHTML(getColor(i), i, getColor(i));
+                cellsHTML[j-1] =  placePieceGetHTML(getColor(j), j, this.color);
+                this.position = j;
+            }
+        }
+
+        // Placing all 16 pieces
+        let g1 = new piece(33, "greenpiece"); g1.placePiece(g1.housePosition);
+        let g2 = new piece(34, "greenpiece"); g2.placePiece(g2.housePosition);
+        let g3 = new piece(48, "greenpiece"); g3.placePiece(g3.housePosition);
+        let g4 = new piece(49, "greenpiece"); g4.placePiece(g4.housePosition);
+
+        let r1 = new piece(42, "redpiece"); r1.placePiece(r1.housePosition);
+        let r2 = new piece(43, "redpiece"); r2.placePiece(r2.housePosition);
+        let r3 = new piece(57, "redpiece"); r3.placePiece(r3.housePosition);
+        let r4 = new piece(58, "redpiece"); r4.placePiece(r4.housePosition);
+
+        let y1 = new piece(168, "yellowpiece"); y1.placePiece(y1.housePosition);
+        let y2 = new piece(169, "yellowpiece"); y2.placePiece(y2.housePosition);
+        let y3 = new piece(183, "yellowpiece"); y3.placePiece(y3.housePosition);
+        let y4 = new piece(184, "yellowpiece"); y4.placePiece(y4.housePosition);
+
+        let b1 = new piece(177, "bluepiece"); b1.placePiece(b1.housePosition);
+        let b2 = new piece(178, "bluepiece"); b2.placePiece(b2.housePosition);
+        let b3 = new piece(192, "bluepiece"); b3.placePiece(b3.housePosition);
+        let b4 = new piece(193, "bluepiece"); b4.placePiece(b4.housePosition);
+
+
+
+        
+        render();
+
+
+
+        // View layer
+
+        function createCell(i){
+            return   `<div class="cell" id="${i}"> </div>`
+        }
+
+        function colorCell(i, color){
+            cellsHTML[i-1] =  `<div class="cell ${color}" id="${i}">${i%100}</div>`
+            console.log(`coloring cell `, i)
+        }
+
+        function placePieceGetHTML(cellColor, id, pieceColor){
+            return `<div class="cell ${cellColor}" id="${id}">
+                                    <i class="fas fa-chess-pawn ${pieceColor}"></i>        
+                                </div>`;
+        }
+
+        function render(){
+            gameEl.innerHTML = cellsHTML.join(" ");
+        }
+
 
     </script>
 
