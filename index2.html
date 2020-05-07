@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ludo</title>
+        <link href="style2.css" rel = "stylesheet">
+        <script
+                defer
+                src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+                integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+                crossorigin="anonymous"
+        ></script>
+    </head>
+<body>
+    
+    <div class="game" id="game">
+    </div>
+
+    <script>
+
+        // Fetching the elements
+        let gameEl = document.querySelector("#game");
+
+        // Creating all cells
+        let cellsHTML = []
+        for (let i=1; i<=225; i++) {
+            cellsHTML.push(`<div class="cell" id="${i}">  </div>`);
+        } 
+        gameEl.innerHTML = cellsHTML.join(" ");
+
+    </script>
+
+</body>
+</html>
