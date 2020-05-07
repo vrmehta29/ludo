@@ -5,6 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ludo</title>
         <link href="style2.css" rel = "stylesheet">
+        <link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
         <script
                 defer
                 src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
@@ -14,13 +20,32 @@
     </head>
 <body>
     
-    <div class="game" id="game">
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Ludo</span>
+        <span class="navbar-brand mb-0 h5">By Vinit Mehta</span>
+    </nav>
+
+    <div class="game">
+
+        <div class="board" id="board"></div>
+
+
+        <!-- <div class="dice">
+            <button  
+                type="button">Roll
+                Math.floor(Math.random()*6)+1
+            </button>
+        </div> -->
+
+        <div class="dice" id="dice"></div>
+
     </div>
 
     <script>
 
         // Fetching the elements
-        let gameEl = document.querySelector("#game");
+        let gameEl = document.querySelector("#board");
+        let diceEL = document.querySelector("#dice");
 
         // Creating all cells
         let cellsHTML = []
@@ -58,9 +83,6 @@
         let pathOrder = [217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219, 
                          217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219];
 
-
-        // placePiece(33, "greenpiece");
-        // movePiece(33, 34, "greenpiece")
         
         // Pieces objects
         let piece = function(housePosition, pieceColor){
@@ -75,7 +97,7 @@
                 this.position = i;
             }
 
-            // Move piece from cell i to cell j
+            // Move piece to cell j
             this.movePiece = function (j){
                 let i = this.position;
                 cellsHTML[i-1] =  placePieceGetHTML(getColor(i), i, getColor(i));
@@ -106,7 +128,12 @@
         let b4 = new piece(193, "bluepiece"); b4.placePiece(b4.housePosition);
 
 
+        // Dice
+        let diceHTML = [];
+        initDice();
 
+        
+        
         
         render();
 
@@ -126,11 +153,24 @@
         function placePieceGetHTML(cellColor, id, pieceColor){
             return `<div class="cell ${cellColor}" id="${id}">
                                     <i class="fas fa-chess-pawn ${pieceColor}"></i>        
-                                </div>`;
+                                </div>`
+                    // `<button 
+                    //     type="button" 
+                    //     class="cell ${cellColor}" id="${id}">  <i class="fas fa-chess-pawn ${pieceColor}"></i>
+                    // </button>`
+                    ;
+        }
+
+        function initDice(){
+            diceHTML.push(`<button type="button" class="btn btn-primary btn-sm" id="button"></button>`);
+            diceHTML.push(`<button type="button" class="btn btn-danger btn-sm" id="button"></button>`);
+            diceHTML.push(`<button type="button" class="btn btn-success btn-sm" id="button"></button>`);
+            diceHTML.push(`<button type="button" class="btn btn-warning btn-sm" id="button"></button>`);
         }
 
         function render(){
             gameEl.innerHTML = cellsHTML.join(" ");
+            diceEL.innerHTML = diceHTML.join(" ");
         }
 
 
