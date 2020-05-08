@@ -74,6 +74,13 @@
         let pathOrder = [217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219, 
                          217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219];
 
+        // Number of pieces in house
+        let piecesInHouse = {
+            'greenpiece':4,
+            'redpiece':4,
+            'yellowpiece':4,
+            'bluepiece':4
+        }
         
         // Piece object constructor function
         let piece = function(housePosition, pieceColor, home){
@@ -102,6 +109,7 @@
                 if (this.position !== this.housePosition) {alert("Piece not in house")}
                 else {this.movePiece(this.home)}
                 this.inHouse = false;
+                if (piecesInHouse[this.color]>0) {piecesInHouse[this.color]-=1;}
             }
 
             // Move piece function
@@ -153,7 +161,6 @@
         let b3 = new piece(192, "bluepiece", 134); b3.placePiece(b3.housePosition);
         let b4 = new piece(193, "bluepiece", 134); b4.placePiece(b4.housePosition);
 
-
         // Dice
         let diceHTML = [];
         initDice();
@@ -185,6 +192,10 @@
             
             // Keep the dice rolling for 1 sec
             setTimeout(() => {  render(); }, 1000);
+
+            if (turn.rolledNumber !== 6 && piecesInHouse[turn.color+'piece']===4){
+                setTimeout(() => {  finishTurn(); }, 1000);
+            }
         }
 
         function selectPiece(i){
@@ -192,31 +203,38 @@
             if (turn.complete) { alert('Roll the dice')}
             else{
                 if (turn.color === 'green') {
-                    if (g1.position === i) {g1.move(turn.rolledNumber) ; finishTurn();}
-                    else if (g2.position === i) {g2.move(turn.rolledNumber); finishTurn();}
-                    else if (g3.position === i) {g3.move(turn.rolledNumber); finishTurn();}
-                    else if (g4.position === i) {g4.move(turn.rolledNumber); finishTurn();}
+                    if (g1.position === i && (!g1.inHouse || turn.rolledNumber===6) ) {g1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (g2.position === i && (!g2.inHouse || turn.rolledNumber===6)) {g2.move(turn.rolledNumber); finishTurn();}
+                    else if (g3.position === i && (!g3.inHouse || turn.rolledNumber===6)) {g3.move(turn.rolledNumber); finishTurn();}
+                    else if (g4.position === i && (!g4.inHouse || turn.rolledNumber===6)) {g4.move(turn.rolledNumber); finishTurn();}
                 }
                 if (turn.color === 'red') {
-                    if (r1.position === i) {r1.move(turn.rolledNumber) ; finishTurn();}
-                    else if (r2.position === i) {r2.move(turn.rolledNumber); finishTurn();}
-                    else if (r3.position === i) {r3.move(turn.rolledNumber); finishTurn();}
-                    else if (r4.position === i) {r4.move(turn.rolledNumber); finishTurn();}
+                    if (r1.position === i && (!r1.inHouse || turn.rolledNumber===6)) {r1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (r2.position === i && (!r2.inHouse || turn.rolledNumber===6)) {r2.move(turn.rolledNumber); finishTurn();}
+                    else if (r3.position === i && (!r3.inHouse || turn.rolledNumber===6)) {r3.move(turn.rolledNumber); finishTurn();}
+                    else if (r4.position === i && (!r4.inHouse || turn.rolledNumber===6)) {r4.move(turn.rolledNumber); finishTurn();}
                 }
                 if (turn.color === 'yellow') {
-                    if (y1.position === i) {y1.move(turn.rolledNumber) ; finishTurn();}
-                    else if (y2.position === i) {y2.move(turn.rolledNumber); finishTurn();}
-                    else if (y3.position === i) {y3.move(turn.rolledNumber); finishTurn();}
-                    else if (y4.position === i) {y4.move(turn.rolledNumber); finishTurn();}
+                    if (y1.position === i && (!y1.inHouse || turn.rolledNumber===6)) {y1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (y2.position === i && (!y2.inHouse || turn.rolledNumber===6)) {y2.move(turn.rolledNumber); finishTurn();}
+                    else if (y3.position === i && (!y3.inHouse || turn.rolledNumber===6)) {y3.move(turn.rolledNumber); finishTurn();}
+                    else if (y4.position === i && (!y4.inHouse || turn.rolledNumber===6)) {y4.move(turn.rolledNumber); finishTurn();}
                 }
                 if (turn.color === 'blue') {
-                    if (b1.position === i) {b1.move(turn.rolledNumber) ; finishTurn();}
-                    else if (b2.position === i) {b2.move(turn.rolledNumber); finishTurn();}
-                    else if (b3.position === i) {b3.move(turn.rolledNumber); finishTurn();}
-                    else if (b4.position === i) {b4.move(turn.rolledNumber); finishTurn();}
+                    if (b1.position === i && (!b1.inHouse || turn.rolledNumber===6)) {b1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (b2.position === i && (!b2.inHouse || turn.rolledNumber===6)) {b2.move(turn.rolledNumber); finishTurn();}
+                    else if (b3.position === i && (!b3.inHouse || turn.rolledNumber===6)) {b3.move(turn.rolledNumber); finishTurn();}
+                    else if (b4.position === i && (!b4.inHouse || turn.rolledNumber===6)) {b4.move(turn.rolledNumber); finishTurn();}
                 }
             }
             console.log('pass turn');
+        }
+
+        let nextTurn = {
+            'blue': 'yellow',
+            'yellow': 'green',
+            'green': 'red',
+            'red': 'blue'
         }
 
         function finishTurn(){
@@ -224,19 +242,9 @@
                 diceHTML[0] = getDiceButtonHTML(turn.color, false)    
             }
             else {
-                diceHTML[0] = getDiceButtonHTML(turn.color, false)
-                if (turn.color === 'blue') {
-                    turn.color = 'yellow';
-                    diceHTML[0] = getDiceButtonHTML('yellow', false);}
-                else if (turn.color === 'yellow') {
-                    turn.color = 'green';
-                    diceHTML[0] = getDiceButtonHTML('green', false);}
-                else if (turn.color === 'green') {
-                    turn.color = 'red';
-                    diceHTML[0] = getDiceButtonHTML('red', false);}
-                else if (turn.color === 'red') {
-                    turn.color = 'blue';
-                    diceHTML[0] = getDiceButtonHTML('blue', false);}
+                // diceHTML[0] = getDiceButtonHTML(turn.color, false);
+                diceHTML[0] = getDiceButtonHTML(nextTurn[turn.color], false);
+                turn.color = nextTurn[turn.color];
                 turn.complete = true;
             }
             render();
