@@ -29,6 +29,9 @@
     padding-bottom:  1.67%;
   }
 
+.pieceBtn{
+      font-size: 1px;
+  }
 
 .green {
     background-color: #b6f0b9;
@@ -61,17 +64,17 @@
 
 .greenpiece {
     color: #66bb6a;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
 }
 .redpiece {
     color: #e53935;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
 }
 .yellowpiece {
     color: #e7d213;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
 }
 .bluepiece {
     color: #29b6f6;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
 }

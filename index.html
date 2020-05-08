@@ -75,12 +75,13 @@
                          217, 202, 187, 172, 157, 142, 126, 125, 124, 123, 122, 121, 106, 91, 92, 93, 94, 95, 96, 82, 67, 52, 37, 22, 7, 8, 9, 24, 39, 54, 69, 84, 100, 101, 102, 103, 104, 105, 120, 135, 134, 133, 132, 131, 130, 144, 159, 174, 189, 204, 219, 219];
 
         
-        // Pieces objects
-        let piece = function(housePosition, pieceColor){
+        // Piece object constructor function
+        let piece = function(housePosition, pieceColor, home){
             this.housePosition = housePosition;
             this.position = housePosition;
             this.color = pieceColor;
             this.inHouse = this.position === this.housePosition;
+            this.home = home;
 
             // Place piece at cell i
             this.placePiece =  function(i){
@@ -95,42 +96,153 @@
                 cellsHTML[j-1] =  placePieceGetHTML(getColor(j), j, this.color);
                 this.position = j;
             }
+
+            // Remove piece from home
+            this.removeFromHome = function(){
+                if (this.position !== this.housePosition) {alert("Piece not in house")}
+                else {this.movePiece(this.home)}
+                this.inHouse = false;
+            }
+
+            // Move piece function
+            this.move = function(byNum){
+                console.log(this)
+                if (this.inHouse) {
+                    if(byNum === 6) {this.removeFromHome()}
+                    else {turn.complete = true}
+                }
+                else {
+                    let nextCell;
+                    for (let i =0; i<pathOrder.length; i++){
+                        if (pathOrder[i] === this.position) {
+                            nextCell = pathOrder[i+ byNum];
+                            break;
+                        }
+                    }
+                    this.movePiece(nextCell);
+                }
+                console.log(this)
+            }
         }
 
         // Turn object
         let turn = {
             color: "blue",
-            rolledNumber: 0
+            rolledNumber: 0,
+            complete: false
         }
 
         // Placing all 16 pieces
-        let g1 = new piece(33, "greenpiece"); g1.placePiece(g1.housePosition);
-        let g2 = new piece(34, "greenpiece"); g2.placePiece(g2.housePosition);
-        let g3 = new piece(48, "greenpiece"); g3.placePiece(g3.housePosition);
-        let g4 = new piece(49, "greenpiece"); g4.placePiece(g4.housePosition);
+        let g1 = new piece(33, "greenpiece", 92); g1.placePiece(g1.housePosition);
+        let g2 = new piece(34, "greenpiece", 92); g2.placePiece(g2.housePosition);
+        let g3 = new piece(48, "greenpiece", 92); g3.placePiece(g3.housePosition);
+        let g4 = new piece(49, "greenpiece", 92); g4.placePiece(g4.housePosition);
 
-        let r1 = new piece(42, "redpiece"); r1.placePiece(r1.housePosition);
-        let r2 = new piece(43, "redpiece"); r2.placePiece(r2.housePosition);
-        let r3 = new piece(57, "redpiece"); r3.placePiece(r3.housePosition);
-        let r4 = new piece(58, "redpiece"); r4.placePiece(r4.housePosition);
+        let r1 = new piece(42, "redpiece", 24); r1.placePiece(r1.housePosition);
+        let r2 = new piece(43, "redpiece", 24); r2.placePiece(r2.housePosition);
+        let r3 = new piece(57, "redpiece", 24); r3.placePiece(r3.housePosition);
+        let r4 = new piece(58, "redpiece", 24); r4.placePiece(r4.housePosition);
 
-        let y1 = new piece(168, "yellowpiece"); y1.placePiece(y1.housePosition);
-        let y2 = new piece(169, "yellowpiece"); y2.placePiece(y2.housePosition);
-        let y3 = new piece(183, "yellowpiece"); y3.placePiece(y3.housePosition);
-        let y4 = new piece(184, "yellowpiece"); y4.placePiece(y4.housePosition);
+        let y1 = new piece(168, "yellowpiece", 202); y1.placePiece(y1.housePosition);
+        let y2 = new piece(169, "yellowpiece", 202); y2.placePiece(y2.housePosition);
+        let y3 = new piece(183, "yellowpiece", 202); y3.placePiece(y3.housePosition);
+        let y4 = new piece(184, "yellowpiece", 202); y4.placePiece(y4.housePosition);
 
-        let b1 = new piece(177, "bluepiece"); b1.placePiece(b1.housePosition);
-        let b2 = new piece(178, "bluepiece"); b2.placePiece(b2.housePosition);
-        let b3 = new piece(192, "bluepiece"); b3.placePiece(b3.housePosition);
-        let b4 = new piece(193, "bluepiece"); b4.placePiece(b4.housePosition);
+        let b1 = new piece(177, "bluepiece", 134); b1.placePiece(b1.housePosition);
+        let b2 = new piece(178, "bluepiece", 134); b2.placePiece(b2.housePosition);
+        let b3 = new piece(192, "bluepiece", 134); b3.placePiece(b3.housePosition);
+        let b4 = new piece(193, "bluepiece", 134); b4.placePiece(b4.housePosition);
 
 
         // Dice
         let diceHTML = [];
         initDice();
 
+        // Display blank dice at the start of the game
+        function initDice(){
+            diceHTML.push(getDiceButtonHTML('blue', false));
+            diceHTML.push(getDiceIcon(0));
+            render();
+        }
 
-        
+        // Change the dice turn
+        function activateTurn(){
+
+            // Recording the start of a new turn
+            turn.complete = false;
+            
+            // Display rolling dice gif
+            diceHTML[1] = getDiceIcon(7);
+            render();
+
+            // Sample random number and display it
+            let rolledNumber = Math.floor(Math.random()*6)+1;
+            turn.rolledNumber = rolledNumber;
+            diceHTML[1] = getDiceIcon(rolledNumber);
+            // Disable dice button
+            diceHTML[0] = getDiceButtonHTML(turn.color, true);
+            console.log(turn);
+            
+            // Keep the dice rolling for 1 sec
+            setTimeout(() => {  render(); }, 1000);
+        }
+
+        function selectPiece(i){
+            console.log('selected piece at ',i);
+            if (turn.complete) { alert('Roll the dice')}
+            else{
+                if (turn.color === 'green') {
+                    if (g1.position === i) {g1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (g2.position === i) {g2.move(turn.rolledNumber); finishTurn();}
+                    else if (g3.position === i) {g3.move(turn.rolledNumber); finishTurn();}
+                    else if (g4.position === i) {g4.move(turn.rolledNumber); finishTurn();}
+                }
+                if (turn.color === 'red') {
+                    if (r1.position === i) {r1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (r2.position === i) {r2.move(turn.rolledNumber); finishTurn();}
+                    else if (r3.position === i) {r3.move(turn.rolledNumber); finishTurn();}
+                    else if (r4.position === i) {r4.move(turn.rolledNumber); finishTurn();}
+                }
+                if (turn.color === 'yellow') {
+                    if (y1.position === i) {y1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (y2.position === i) {y2.move(turn.rolledNumber); finishTurn();}
+                    else if (y3.position === i) {y3.move(turn.rolledNumber); finishTurn();}
+                    else if (y4.position === i) {y4.move(turn.rolledNumber); finishTurn();}
+                }
+                if (turn.color === 'blue') {
+                    if (b1.position === i) {b1.move(turn.rolledNumber) ; finishTurn();}
+                    else if (b2.position === i) {b2.move(turn.rolledNumber); finishTurn();}
+                    else if (b3.position === i) {b3.move(turn.rolledNumber); finishTurn();}
+                    else if (b4.position === i) {b4.move(turn.rolledNumber); finishTurn();}
+                }
+            }
+            console.log('pass turn');
+        }
+
+        function finishTurn(){
+            if (turn.rolledNumber === 6) {
+                diceHTML[0] = getDiceButtonHTML(turn.color, false)    
+            }
+            else {
+                diceHTML[0] = getDiceButtonHTML(turn.color, false)
+                if (turn.color === 'blue') {
+                    turn.color = 'yellow';
+                    diceHTML[0] = getDiceButtonHTML('yellow', false);}
+                else if (turn.color === 'yellow') {
+                    turn.color = 'green';
+                    diceHTML[0] = getDiceButtonHTML('green', false);}
+                else if (turn.color === 'green') {
+                    turn.color = 'red';
+                    diceHTML[0] = getDiceButtonHTML('red', false);}
+                else if (turn.color === 'red') {
+                    turn.color = 'blue';
+                    diceHTML[0] = getDiceButtonHTML('blue', false);}
+                turn.complete = true;
+            }
+            render();
+        }
+
+   
         render();
 
 
@@ -143,55 +255,30 @@
 
         function colorCell(i, color){
             cellsHTML[i-1] =  `<div class="cell ${color}" id="${i}">${i%100}</div>`
-            console.log(`coloring cell `, i)
         }
 
         function placePieceGetHTML(cellColor, id, pieceColor){
-            return `<div class="cell ${cellColor}" id="${id}">
-                                    <i class="fas fa-map-marker-alt  ${pieceColor}"></i>    
-                                </div>`
-                    ;
+            return `<button class="pieceBtn cell ${cellColor}" id=${id} onclick='selectPiece(${id})'>
+                <i class="fas fa-map-marker-alt  ${pieceColor}"></i>
+                </button>`;
         }
 
-        function initDice(){
-            diceHTML.push(`<button type="button" class="btn btn-primary btn-sm" id="button" 
+        function getDiceButtonHTML(color, disabled){
+            let buttonType;
+            disabledText = '';
+            if (disabled) {disabledText = 'disabled' }
+            if (color === 'blue') {buttonType = 'primary'}
+            else if (color === 'yellow') {buttonType = 'warning'}
+            else if (color === 'red') {buttonType = 'danger'}
+            else if (color === 'green') {buttonType = 'success'}
+            return `<button type="button" class="btn btn-${buttonType} btn-sm" id="button"  ${disabledText}
                     onclick="activateTurn()">    
-                </button>`);
-            diceHTML.push(`<div> <img src="img/d0.png" width=25px height=25px/></div>`);
-            render();
+                </button>`
         }
-
-        function activateTurn(){
-            
-            diceHTML[1] = (`<div> 
-                <img src="img/dice.gif" width=25px height=25px onclick="activateTurn();" />
-            </div>`);
-            render();
-
-            let rolledNumber = Math.floor(Math.random()*6)+1;
-            turn.rolledNumber = rolledNumber;
-            if (rolledNumber === 1) { diceHTML[1] = `<div> <img src="img/d1.png" width=25px height=25px/></div>`}
-            else if (rolledNumber === 2) { diceHTML[1] = `<div> <img src="img/d2.png" width=25px height=25px/></div>`}
-            else if (rolledNumber === 3) { diceHTML[1] = `<div> <img src="img/d3.png" width=25px height=25px/></div>`}
-            else if (rolledNumber === 4) { diceHTML[1] = `<div> <img src="img/d4.png" width=25px height=25px/></div>`}
-            else if (rolledNumber === 5) { diceHTML[1] = `<div> <img src="img/d5.png" width=25px height=25px/></div>`}
-            else if (rolledNumber === 6) { diceHTML[1] = `<div> <img src="img/d6.png" width=25px height=25px/></div>`}
-
-            if (turn.color === 'blue') {
-                turn.color = 'yellow';
-                diceHTML[0] = `<button type="button" class="btn btn-warning btn-sm" id="button" onclick="activateTurn()"></button>`;
-                }
-            else if (turn.color === 'yellow') {
-                turn.color = 'green';
-                diceHTML[0] = `<button type="button" class="btn btn-success btn-sm" id="button" onclick="activateTurn()"></button>`;}
-            else if (turn.color === 'green') {
-                turn.color = 'red';
-                diceHTML[0] = `<button type="button" class="btn btn-danger btn-sm" id="button" onclick="activateTurn()"></button>`;}
-            else if (turn.color === 'red') {
-                turn.color = 'blue';
-                diceHTML[0] = `<button type="button" class="btn btn-primary btn-sm" id="button" onclick="activateTurn()"></button>`;}
-            
-            setTimeout(() => {  render(); }, 1000);
+        
+        function getDiceIcon(num){
+            if (num !== 7) {return `<div> <img src="img/d${num}.png" width=25px height=25px/></div>`}
+            else {return `<div> <img src="img/d${num}.gif" width=25px height=25px/></div>`}
         }
 
         function render(){
