@@ -161,6 +161,9 @@
         let b3 = new piece(192, "bluepiece", 134); b3.placePiece(b3.housePosition);
         let b4 = new piece(193, "bluepiece", 134); b4.placePiece(b4.housePosition);
 
+        // Testing multi pieces stacking
+        // cellsHTML[91] = placePieceGetHTML2(getColor(91), 91, g1.color, getColor(91), 91, g2.color);
+
         // Dice
         let diceHTML = [];
         initDice();
@@ -269,6 +272,17 @@
             return `<button class="pieceBtn cell ${cellColor}" id=${id} onclick='selectPiece(${id})'>
                 <i class="fas fa-map-marker-alt  ${pieceColor}"></i>
                 </button>`;
+        }
+
+        function placePieceGetHTML2(cellColor, id, pieceColor, cellColor2, id2, pieceColor2){
+            return `<span class="fa-layers fa-fw" style="background:${cellColor}">
+                        <button class="pieceBtn cell" id=${id} onclick='selectPiece(${id})'>
+                        <i class="fas fa-circle  ${pieceColor}"></i>
+                        </button>
+                        <button class="pieceBtn cell" id=${id} onclick='selectPiece(${id})'>
+                        <i class="fas fa-circle  ${pieceColor}" data-fa-transform = "shrink-3"></i>
+                        </button>
+                </span>`;
         }
 
         function getDiceButtonHTML(color, disabled){
