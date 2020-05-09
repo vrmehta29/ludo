@@ -7,10 +7,7 @@
 
 .board {
 
-    display: flex;
-    flex-flow: row wrap;
     border: 1px solid black;
-    align-self: center;
     margin: 20px;
 }
 
@@ -21,16 +18,21 @@
 }
 
 .cell {
-    display: flex;
-    flex: 1 0 6.3%;
-    border: 0.5px solid gainsboro;
-    margin: 0;
-    height: auto;
-    padding-bottom:  1.67%;
+    float:left;
+    position: relative; /* Make sure that children are positioned with respect to parents */
+    width: 6.66%;
+    padding-bottom: 6.66%; /* = width for a 1:1 aspect ratio */
+    margin:0%;
+    border: solid 1px gainsboro;
+    overflow:hidden;
   }
 
 .pieceBtn{
-      font-size: 1px;
+    position:absolute;
+    height: auto;
+    width: auto;
+    padding: 5%;
+    text-align: center;
   }
 
 .green {
@@ -64,17 +66,17 @@
 
 .greenpiece {
     color: #66bb6a;
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
 }
 .redpiece {
     color: #e53935;
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
 }
 .yellowpiece {
     color: #e7d213;
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
 }
 .bluepiece {
     color: #29b6f6;
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
 }
