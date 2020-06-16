@@ -1,0 +1,29 @@
+{
+  "name": "ludo",
+  "version": "1.0.0",
+  "description": "Ludo game app",
+  "main": "ludo.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vrmehta29/ludo.git"
+  },
+  "keywords": [
+    "ludo",
+    "node",
+    "express"
+  ],
+  "author": "Vinit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vrmehta29/ludo/issues"
+  },
+  "homepage": "https://github.com/vrmehta29/ludo#readme"
+}
