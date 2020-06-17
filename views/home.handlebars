@@ -1,1 +1,20 @@
-<h1>Welcome to Ludo</h1>
+<div class="home">
+    <div class="shadow p-3 mb-5 bg-white rounded" style="align-self: stretch;">
+        <h1 class="display-5" style="text-align: center;">Welcome {{user}}</h1>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded">
+            <button type="button" class="btn btn-secondary rounded-circle"  
+                data-toggle="tooltip" data-placement="bottom" title="Select number of players">1</button>
+            <button type="button" class="btn btn-secondary rounded-circle"
+                data-toggle="tooltip" data-placement="bottom" title="Select number of players">2</button>
+            <button type="button" class="btn btn-secondary rounded-circle"
+                data-toggle="tooltip" data-placement="bottom" title="Select number of players">3</button>
+            <button type="button" class="btn btn-secondary rounded-circle"
+                data-toggle="tooltip" data-placement="bottom" title="Select number of players">4</button>
+    </div>
+
+    <div>
+        <button class="btn btn-primary" onclick="window.location.href='/game'">Start</a></button>
+    </div>
+</div>

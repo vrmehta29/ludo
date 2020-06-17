@@ -9,16 +9,17 @@ var handlebars = require('express-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
-
+let user = "User"
 
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-    res.render('home'); 
+    res.render('home', {user: user}); 
 });
 app.get('/game', function(req, res){
     res.render('game');
 });
+
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
     res.status(404);
