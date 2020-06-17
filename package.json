@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devstart": "nodemon ./bin/www"
+    "devstart": "nodemon ludo.js"
   },
   "repository": {
     "type": "git",

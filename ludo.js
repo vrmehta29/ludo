@@ -14,6 +14,9 @@ let user = "User"
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
+    res.render('login'); 
+});
+app.get('/home', function(req, res) {
     res.render('home', {user: user}); 
 });
 app.get('/game', function(req, res){
@@ -28,7 +31,7 @@ app.use(function(req, res, next){
 // 500 error handler (middleware)
 app.use(function(err, req, res, next){
     console.error(err.stack);
-    res.status(500);
+    res.status(err.status ||500);
     res.render('500');
 });
 
