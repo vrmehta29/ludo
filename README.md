@@ -1,6 +1,6 @@
 # Ludo web app
 
-### Develpoment stack
+### Development stack
 
 This is a web app for the popular ludo game with a focus on mobile devices. The preferred frontend development is using **ReactJS** and backend development using **NodeJS**. The database choice is **MongoDB**. Thus, **MERN** stack is being used. 
 
