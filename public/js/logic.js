@@ -46,22 +46,24 @@ let piecesInHouse = {
     'bluepiece':4
 }
 
-// Piece object constructor function
-let piece = function(housePosition, pieceColor, home){
-    this.housePosition = housePosition;
-    this.position = housePosition;
-    this.color = pieceColor;
-    this.inHouse = this.position === this.housePosition;
-    this.home = home;
+// Piece class
+class piece { 
+    constructor(housePosition, pieceColor, home){
+        this.housePosition = housePosition;
+        this.position = housePosition;
+        this.color = pieceColor;
+        this.inHouse = this.position === this.housePosition;
+        this.home = home;
+    }
 
     // Place piece at cell i
-    this.placePiece =  function(i){
+    placePiece =  function(i){
         cellsHTML[i-1] = placePieceGetHTML(getColor(i), i, this.color);
         this.position = i;
     }
 
     // Move piece to cell j
-    this.movePiece = function (j){
+    movePiece = function (j){
         let i = this.position;
         cellsHTML[i-1] =  placePieceGetHTML(getColor(i), i, getColor(i));
         cellsHTML[j-1] =  placePieceGetHTML(getColor(j), j, this.color);
@@ -69,7 +71,7 @@ let piece = function(housePosition, pieceColor, home){
     }
 
     // Remove piece from home
-    this.removeFromHome = function(){
+    removeFromHome = function(){
         if (this.position !== this.housePosition) {alert("Piece not in house")}
         else {this.movePiece(this.home)}
         this.inHouse = false;
@@ -77,7 +79,7 @@ let piece = function(housePosition, pieceColor, home){
     }
 
     // Move piece function
-    this.move = function(byNum){
+    move = function(byNum){
         console.log(this)
         if (this.inHouse) {
             if(byNum === 6) {this.removeFromHome()}
@@ -158,7 +160,7 @@ function activateTurn(){
     console.log(turn);
     
     // Keep the dice rolling for 1 sec
-    setTimeout(() => {  render(); }, 1000);
+    setTimeout(() => {  render(); }, 200);
 
     if (turn.rolledNumber !== 6 && piecesInHouse[turn.color+'piece']===4){
         setTimeout(() => {  finishTurn(); }, 1000);
